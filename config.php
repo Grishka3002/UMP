@@ -21,11 +21,11 @@ if ($databaseUrl !== '') {
 
 return [
     'db' => [
-        'host' => getenv('MYSQLHOST') ?: getenv('DB_HOST') ?: ($databaseUrlConfig['host'] ?? ''),
-        'port' => (int) (getenv('MYSQLPORT') ?: getenv('DB_PORT') ?: ($databaseUrlConfig['port'] ?? 3306)),
-        'name' => getenv('MYSQLDATABASE') ?: getenv('DB_NAME') ?: ($databaseUrlConfig['name'] ?? ''),
-        'user' => getenv('MYSQLUSER') ?: getenv('DB_USER') ?: ($databaseUrlConfig['user'] ?? ''),
-        'pass' => getenv('MYSQLPASSWORD') ?: getenv('DB_PASS') ?: ($databaseUrlConfig['pass'] ?? ''),
+        'host' => ($databaseUrlConfig['host'] ?? '') ?: getenv('MYSQLHOST') ?: getenv('DB_HOST') ?: '',
+        'port' => (int) (($databaseUrlConfig['port'] ?? 0) ?: getenv('MYSQLPORT') ?: getenv('DB_PORT') ?: 3306),
+        'name' => ($databaseUrlConfig['name'] ?? '') ?: getenv('MYSQLDATABASE') ?: getenv('DB_NAME') ?: '',
+        'user' => ($databaseUrlConfig['user'] ?? '') ?: getenv('MYSQLUSER') ?: getenv('DB_USER') ?: '',
+        'pass' => ($databaseUrlConfig['pass'] ?? '') ?: getenv('MYSQLPASSWORD') ?: getenv('DB_PASS') ?: '',
         'charset' => getenv('DB_CHARSET') ?: 'utf8mb4',
     ],
     'admin' => [
