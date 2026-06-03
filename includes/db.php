@@ -12,6 +12,13 @@ function db(): PDO
 
     $config = require __DIR__ . '/../config.php';
     $db = $config['db'];
+
+    if ($db['host'] === '' || $db['name'] === '' || $db['user'] === '') {
+        throw new RuntimeException(
+            'Database is not configured. Set MYSQL_URL or MYSQLHOST, MYSQLPORT, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE in Railway app variables.'
+        );
+    }
+
     $dsn = sprintf(
         'mysql:host=%s;port=%d;dbname=%s;charset=%s',
         $db['host'],

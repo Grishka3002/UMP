@@ -19,6 +19,10 @@ Railway should use the `Dockerfile` from this project.
 
 In the PHP app service, add these variables from the Railway MySQL service:
 
+- `MYSQL_URL`
+
+Or add these variables individually:
+
 - `MYSQLHOST`
 - `MYSQLPORT`
 - `MYSQLUSER`
