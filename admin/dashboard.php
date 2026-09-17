@@ -198,6 +198,11 @@ $bookings = get_admin_bookings_filtered($filters);
         </div>
     </div>
 
+    <nav class="pill-row" aria-label="Разделы админки">
+        <a class="button" href="/admin/dashboard.php" aria-current="page">Брони и настройки</a>
+        <a class="button secondary" href="/admin/collectives.php">РАСПИСАНИЕ КОЛЛЕКТИВОВ</a>
+    </nav>
+
     <?php if ($flash !== null): ?>
         <div class="flash <?= e($flash['type']) ?>"><?= e($flash['message']) ?></div>
     <?php endif; ?>

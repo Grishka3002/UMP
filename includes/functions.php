@@ -367,7 +367,7 @@ function validate_booking_data(
     }
 
     if (booking_conflicts($spaceId, $date, $startTime, $endTime, $ignoreId)) {
-        throw new RuntimeException('На это время уже есть бронь. Выберите другой интервал.');
+        throw new RuntimeException('На ' . (new DateTimeImmutable($date))->format('d.m.Y') . ' в это время уже есть бронь. Выберите другой интервал или исключите эту дату.');
     }
 }
 
