@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/collective-schedule.php';
+require_once __DIR__ . '/../includes/collective-management.php';
 
 app_config();
 require_admin();
@@ -41,11 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new RuntimeException('Укажите положительное целое количество человек.');
         }
         $schedule = get_space_schedule($settings, $spaceId);
-        create_multi_day_bookings_same_time(
-            $spaceId, $dates, $values['event_name'], $values['description'],
-            $values['responsible_name'], $values['responsible_phone'], (int) $values['attendees_count'],
-            $values['start_time'], $values['end_time'], $schedule['opening_time'], $schedule['closing_time']
-        );
+        create_collective_bookings($values, $dates, $schedule);
         set_flash('success', 'Расписание добавлено. Создано броней: ' . count($dates) . '. Все занятия отображаются в общем календаре.');
         redirect('/admin/collectives.php');
     } catch (Throwable $exception) {
@@ -73,6 +70,7 @@ $dayNames = [1 => 'Понедельник', 2 => 'Вторник', 3 => 'Сре�
         <a class="button" href="/admin/collectives.php" aria-current="page">РАСПИСАНИЕ КОЛЛЕКТИВОВ</a>
     </nav>
     <?php if ($flash !== null): ?><div class="flash <?= e($flash['type']) ?>"><?= e($flash['message']) ?></div><?php endif; ?>
+    <p><a class="button secondary" href="/admin/collective-bookings.php">Управление бронями: удалить выбранные или всю серию</a></p>
     <section class="card admin-card" style="margin-top: 24px;">
         <h2>Забронировать занятия</h2>
         <p class="muted">Выберите период включительно и дни недели. Время одинаковое для всех занятий. При пересечении с существующей бронью расписание целиком не сохраняется.</p>
